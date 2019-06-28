@@ -18,7 +18,7 @@ app.use('/api', rotas)
 
 app.use(express.static(__dirname + '/cliente'))
 
-const porta = 3002
+const porta = 3003 // porta padrao deve ser 3001
 app.listen(porta, () => {
     console.log('Servidor em excução (localhost:', porta, ')')
 })
