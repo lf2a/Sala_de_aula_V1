@@ -33,21 +33,18 @@ app.use('/', rotas)
 
 app.use(express.static(__dirname + '/views'))
 
-// const que = require('./db_config')
-// console.log(que.que.host)
-
 const porta = 3000
 
-/*
-    caso for usar a porta 80 é
-    preciso levantar o server como root pra evitar o erro
-    "Error: listen EACCES: permission denied 0.0.0.0:80"
-*/
+/**
+ * caso for usar a porta 80 é
+ * preciso levantar o server como root pra evitar o erro
+ * "Error: listen EACCES: permission denied 0.0.0.0:80"
+ */
 
-/* 
-    caso tenha o apache2 rodando na porta 80
-    sudo service apache2 stop
-*/
+/** 
+ * caso tenha o apache2 rodando na porta 80
+ * sudo service apache2 stop
+ */
 
 https.createServer({
         key: fs.readFileSync('server.key'),

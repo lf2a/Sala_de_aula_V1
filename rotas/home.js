@@ -1,20 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const mysql = require('mysql')
 const user = require('./../usuario')
 var group = require('./../group')
-const db_config = require('./../db_config')
 var limit = require('./../limit')
+const Query = require('./../query')
 
 router.get('/home', (req, res) => {
-    var connection = mysql.createConnection({
-        host: db_config.con[0],
-        user: db_config.con[1],
-        password: db_config.con[2],
-        database: db_config.con[3]
-    });
-
-    connection.connect();
 
     if (req.query.limit) {
         limit.limit_group += Number(req.query.limit)
@@ -22,7 +13,7 @@ router.get('/home', (req, res) => {
         Number(limit.limit_group = 5)
     }
 
-    connection.query(`SELECT INTEGRANTE.*, GRUPO.NOME FROM INTEGRANTE INNER JOIN GRUPO ON INTEGRANTE.ID_GRUPO_FK = GRUPO.ID_GRUPO WHERE INTEGRANTE.ID_USUARIO_FK = '${user.id}' LIMIT ${limit.limit_group}`, (error, results, fields) => {
+    new Query().query(`SELECT INTEGRANTE.*, GRUPO.NOME FROM INTEGRANTE INNER JOIN GRUPO ON INTEGRANTE.ID_GRUPO_FK = GRUPO.ID_GRUPO WHERE INTEGRANTE.ID_USUARIO_FK = '${user.id}' LIMIT ${limit.limit_group}`, (error, results, fields) => {
         if (error) {
             console.log('mysql erro: ' + error.code);
 
@@ -68,15 +59,25 @@ router.get('/home', (req, res) => {
                 group.grupo_array.push(res.ID_GRUPO_FK)
             });
 
+            let mostrar_mais = new String()
+            try {
+                console.log(results[0].ID_GRUPO_FK)
+                mostrar_mais = 'mostrar mais'
+                if (group.grupo_array.length < 5) {
+                    mostrar_mais = ''
+                }
+            } catch (error) {
+                mostrar_mais = ''
+            }
+
             res.render('pages/home', {
                 results: results,
                 user: user,
-                tag_link: tag_link
+                tag_link: tag_link,
+                mostrar_mais: mostrar_mais
             })
         }
     });
-
-    connection.end();
 });
 
 module.exports = router

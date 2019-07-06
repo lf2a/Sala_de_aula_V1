@@ -24,7 +24,7 @@
     <% results.forEach((res) => { %>
     <p><a href="/home/postagem/<%= res.ID_POSTAGEM%>"><%= res.ID_POSTAGEM.toUpperCase() %> - <%= res.TITULO.toUpperCase() %> - <%= res.AUTOR.toUpperCase() %></a></p>
     <% }); %>
-<a href="/home/postagens/<%= grupoid %>?limit=5">mostrar mais</a>
+<a href="/home/postagens/<%= grupoid %>?limit=5"><%= mostrar_mais %></a>
     <form action="/home/criar/postagem/<%= grupoid %>" method="post"><br>
         <input type="text" name="titulo_postagem" placeholder="Titulo Postagem" required><br>
         <input type="text" name="autor_postagem" value="<%= user_id %>" readonly><br>

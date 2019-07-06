@@ -16,7 +16,7 @@
     <% results.forEach((res) => { %>
     <p><a href="/home/postagens/<%= res.ID_GRUPO_FK %>"><%= res.NOME %></a></p>
     <% }); %>
-    <a href="/home?limit=5">mostrar mais</a>
+    <a href="/home?limit=5"><%= mostrar_mais %></a>
 
     <form action="<%= tag_link.adicionar_professor_link %>" method="post">
         <%= tag_link.adicionar_professor_tag %><input type="text" name="id_professor" placeholder="Id Professor"

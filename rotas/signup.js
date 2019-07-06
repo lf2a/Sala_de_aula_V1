@@ -1,36 +1,24 @@
 const express = require('express')
 const router = express.Router()
-const mysql = require('mysql')
-const db_config = require('./../db_config')
 const Rand = require('./../rand')
+const Query = require('./../query')
 
 router.post('/signup', (req, res) => {
-    var connection = mysql.createConnection({
-        host: db_config.con[0],
-        user: db_config.con[1],
-        password: db_config.con[2],
-        database: db_config.con[3]
-    });
-
-    connection.connect();
-
-    const r = new Rand()
-
     let id_usuario = new String()
     if (req.body.id_usuario === 'rand') {
-        id_usuario = r.rand()
+        id_usuario = new Rand().rand()
     } else {
         id_usuario = req.body.id_usuario
     }
 
     let senha_usuario = new String()
     if (req.body.senha_usuario === 'rand') {
-        senha_usuario = r.rand()
+        senha_usuario = new Rand().rand()
     } else {
         senha_usuario = req.body.senha_usuario
     }
 
-    connection.query(`INSERT INTO USUARIO (\`ID_USUARIO\`, \`NOME\`, \`EMAIL\`, \`SENHA\`, \`ISADMIN\`, \`ISPROFESSOR\`) VALUES ('${id_usuario}', '${req.body.nome_usuario}', '${req.body.email_usuario}', '${senha_usuario}', '', '')`, (error, results, fields) => {
+    new Query().query(`INSERT INTO USUARIO (\`ID_USUARIO\`, \`NOME\`, \`EMAIL\`, \`SENHA\`, \`ISADMIN\`, \`ISPROFESSOR\`) VALUES ('${id_usuario}', '${req.body.nome_usuario}', '${req.body.email_usuario}', '${senha_usuario}', '', '')`, (error, results, fields) => {
         if (error) {
             console.log('mysql erro: ' + error.code);
 
@@ -57,8 +45,6 @@ router.post('/signup', (req, res) => {
             })
         }
     });
-
-    connection.end();
 });
 
 module.exports = router

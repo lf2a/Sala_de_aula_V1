@@ -1,21 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const mysql = require('mysql')
 var group = require('./../group')
 var user = require('./../usuario')
-const db_config = require('./../db_config')
 var limit = require('./../limit')
+const Query = require('./../query')
 
 router.get('/home/postagens/:id_grupo', (req, res) => {
-    var connection = mysql.createConnection({
-        host: db_config.con[0],
-        user: db_config.con[1],
-        password: db_config.con[2],
-        database: db_config.con[3]
-    });
-
-    connection.connect();
-
     var isValid = false
 
     group.grupo_array.forEach(res => {
@@ -31,7 +21,7 @@ router.get('/home/postagens/:id_grupo', (req, res) => {
     }
 
     if (isValid) {
-        connection.query(`SELECT * FROM POSTAGEM WHERE ID_GRUPO_FK='${req.params.id_grupo}' ORDER BY DATA_POSTAGEM DESC LIMIT ${limit.limit_posts}`, (error, results, fields) => {
+        new Query().query(`SELECT * FROM POSTAGEM WHERE ID_GRUPO_FK='${req.params.id_grupo}' ORDER BY DATA_POSTAGEM DESC LIMIT ${limit.limit_posts}`, (error, results, fields) => {
             if (error) {
                 console.log('mysql erro: ' + error.code);
 
@@ -60,20 +50,35 @@ router.get('/home/postagens/:id_grupo', (req, res) => {
 
                 group.id_grupo = req.params.id_grupo
 
+                let array_posts = new Array()
+                array_posts = []
+                results.forEach(res => {
+                    array_posts.push(res.ID_POSTAGEM)
+                });
+
+                let mostrar_mais = new String()
+                try {
+                    console.log(results[0].ID_POSTAGEM)
+                    mostrar_mais = 'mostrar mais'
+                    if (array_posts.length < 5) {
+                        mostrar_mais = ''
+                    }
+                } catch (err) {
+                    mostrar_mais = ''
+                }
+
                 res.render('pages/postagens', {
                     results: results,
                     isProfessor: isProfessor,
                     grupoid: req.params.id_grupo,
-                    user_id: user.id
+                    user_id: user.id,
+                    mostrar_mais: mostrar_mais
                 })
             }
         });
     } else {
         res.redirect('/404')
     }
-
-
-    connection.end();
 });
 
 module.exports = router

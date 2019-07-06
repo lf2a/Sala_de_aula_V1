@@ -8,7 +8,6 @@ router.post('/login', (req, res) => {
         res.send('login failed');
 
     } else {
-
         new Query().query(`SELECT * FROM USUARIO WHERE ID_USUARIO='${req.body.id_usuario}'`, (error, results, fields) => {
             if (error) {
                 console.log('mysql erro: ' + error.code);
