@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="/home/info/grupo/<%= grupoid %>">info grupo</a>
+    <form action="<%= isProfessor.adicionar_usuario_link %>" method="get">
+        add<input type="text" name="id_usuario" placeholder="Id Usuario" required><br>
+        <button type="submit">Concluir</button>
+    </form>
+
+    <form action="<%= isProfessor.remover_usuario_link %>" method="post">
+        del<input type="text" name="id_usuario" placeholder="Id Usuario" required><br>
+        <button type="submit">Concluir</button>
+    </form>
+
+    <p>Postagens</p>
+    <% results.forEach((res) => { %>
+    <p><a href="/home/postagem/<%= res.ID_POSTAGEM%>"><%= res.ID_POSTAGEM.toUpperCase() %> - <%= res.TITULO.toUpperCase() %> - <%= res.AUTOR.toUpperCase() %></a></p>
+    <% }); %>
+<a href="/home/postagens/<%= grupoid %>?limit=5">mostrar mais</a>
+    <form action="/home/criar/postagem/<%= grupoid %>" method="post"><br>
+        <input type="text" name="titulo_postagem" placeholder="Titulo Postagem" required><br>
+        <input type="text" name="autor_postagem" value="<%= user_id %>" readonly><br>
+        <input type="text" name="grupo_id" value="<%= grupoid %>"><br>
+        <textarea type="text" name="conteudo_postagem" placeholder="Conteudo Postagem" required></textarea><br>
+        <button type="submit">Publicar</button>
+    </form>
+    
+    <a href="/home">voltar</a>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/login" method="post">
+        <input type="text" name="id_usuario" placeholder="Id Usuario" required>
+        <input type="password" name="senha_usuario" placeholder="Senha Usuario" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <form action="/signup" method="post">
+        <input type="text" name="id_usuario" placeholder="Id Usuario" required>
+        <input type="text" name="nome_usuario" placeholder="Nome Usuario" required>
+        <input type="email" name="email_usuario" placeholder="Email Usuario" required>
+        <input type="password" name="senha_usuario" placeholder="Senha Usuario" required>
+        <button type="submit">Cadastro</button>
+    </form>
+    <p>*caso queira gerar id ou senha randomicamente use 'rand' no input (valido somente para id e senha)</p>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>Olá <%= user.nome %> - <%= user.id %></p>
+    <p><%= user.email %></p>
+
+    <p>Seus Grupos</p>
+    <% results.forEach((res) => { %>
+    <p><a href="/home/postagens/<%= res.ID_GRUPO_FK %>"><%= res.NOME %></a></p>
+    <% }); %>
+    <a href="/home?limit=5">mostrar mais</a>
+
+    <form action="<%= tag_link.adicionar_professor_link %>" method="post">
+        <%= tag_link.adicionar_professor_tag %><input type="text" name="id_professor" placeholder="Id Professor"
+            required>
+        <button type="submit">Concluir</button>
+    </form>
+
+    <form action="<%= tag_link.remover_professor_link %>" method="post">
+        <%= tag_link.remover_professor_tag %><input type="text" name="id_professor" placeholder="Id Professor" required>
+        <button type="submit">Concluir</button>
+    </form>
+
+    <form action="<%= tag_link.criar_grupo_link %>" method="post">
+        <!-- <%= tag_link.criar_grupo_tag %><input type="text" name="id_grupo" placeholder="Id Grupo" required> -->
+        <%= tag_link.criar_grupo_tag %><input type="text" name="nome_grupo" placeholder="Nome Grupo" required>
+        <button type="submit">Concluir</button>
+    </form>
+    <a href="/logout">logout</a>
+    <a href="/delete">excluir conta</a>
+    <a href="/home">carregar pagina</a>
+
+    <footer>
+        <% include ../complemento/footer %>
+    </footer>
+    </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>titulo: <%= results[0].TITULO %></p>
+    <p>autor: <%= results[0].AUTOR %></p>
+    <p>data postagem: <%= results[0].DATA_POSTAGEM.toISOString().slice(0, 10) %></p>
+    <p>grupo: <%= results[0].ID_GRUPO_FK %></p>
+    <p>id postagem: <%= results[0].ID_POSTAGEM %></p>
+    <p>conteudo: <%= results[0].CONTEUDO %></p>
+
+    <a href="<%= isAutor.excluir_post_link %>"><%= isAutor.excluir_post_tag %></a>
+    <a href="/home/postagens/<%= grupo_id %>">voltar</a>
+</body>
+
+</html>
