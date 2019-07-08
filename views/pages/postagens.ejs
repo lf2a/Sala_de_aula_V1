@@ -1,39 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="/pages/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+    <title><%= resul[0].NOME %></title>
 </head>
 
 <body>
-    <a href="/home/info/grupo/<%= grupoid %>">info grupo</a>
-    <form action="<%= isProfessor.adicionar_usuario_link %>" method="get">
-        add<input type="text" name="id_usuario" placeholder="Id Usuario" required><br>
-        <button type="submit">Concluir</button>
-    </form>
 
-    <form action="<%= isProfessor.remover_usuario_link %>" method="post">
-        del<input type="text" name="id_usuario" placeholder="Id Usuario" required><br>
-        <button type="submit">Concluir</button>
-    </form>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="/">Sala de Aula</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link" data-toggle="modal" data-target="#Modal1">
+                        <%= isProfessor.adicionar_usuario_tag %>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link" data-toggle="modal" data-target="#Modal2">
+                        <%= isProfessor.remover_usuario_tag %>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link text-success" data-toggle="modal" data-target="#Modal3">
+                        Criar Postagem
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="/home/info/grupo/<%= grupoid %>"><%= resul[0].NOME %></a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/about">Sobre</a>
+                </li> -->
+            </ul>
+            <span class="navbar-text text-primary" data-toggle="tooltip" data-placement="bottom"
+                title="<%= user.id %> - <%= user.email %>">
+                <%= user.nome %>
+            </span>
+            <ul class="navbar-nav  mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    <p>Postagens</p>
-    <% results.forEach((res) => { %>
-    <p><a href="/home/postagem/<%= res.ID_POSTAGEM%>"><%= res.ID_POSTAGEM.toUpperCase() %> - <%= res.TITULO.toUpperCase() %> - <%= res.AUTOR.toUpperCase() %></a></p>
-    <% }); %>
-<a href="/home/postagens/<%= grupoid %>?limit=5"><%= mostrar_mais %></a>
-    <form action="/home/criar/postagem/<%= grupoid %>" method="post"><br>
-        <input type="text" name="titulo_postagem" placeholder="Titulo Postagem" required><br>
-        <input type="text" name="autor_postagem" value="<%= user_id %>" readonly><br>
-        <input type="text" name="grupo_id" value="<%= grupoid %>"><br>
-        <textarea type="text" name="conteudo_postagem" placeholder="Conteudo Postagem" required></textarea><br>
-        <button type="submit">Publicar</button>
-    </form>
-    
-    <a href="/home">voltar</a>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><%= resul[0].NOME %></li>
+        </ol>
+    </nav>
+
+    <!-- Modal1 -->
+    <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Usuário ao Grupo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="<%= isProfessor.adicionar_usuario_link %>" method="get">
+                        <div class="form-group">
+                            <input type="text" name="id_usuario" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Id Usuario" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Concluir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal2 -->
+    <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Remover Usuário do Grupo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="<%= isProfessor.remover_usuario_link %>" method="post">
+                        <div class="form-group">
+                            <input type="text" name="id_usuario" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Id Usuario" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Concluir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal3 -->
+    <div class="modal fade" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Criar Postagem</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/home/criar/postagem/<%= grupoid %>" method="post">
+                        <div class="form-group">
+                            <input style="margin: 5px 0px 5px 0px" type="text" name="titulo_postagem"
+                                class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                placeholder="Titulo" required>
+                            <small id="" class="text-muted">
+                                No máximo 45 caracteres.
+                            </small>
+                            <input style="margin: 5px 0px 5px 0px" type="text" name="autor_postagem"
+                                class="form-control-plaintext" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                value="<%= user_id %>" readonly>
+                            <input style="margin: 5px 0px 5px 0px" type="text" name="grupo_id"
+                                class="form-control-plaintext" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                value="<%= grupoid %>" readonly>
+                            <!-- <textarea style="margin: 5px 0px 5px 0px" class="form-control" rows="10"
+                                name="conteudo_postagem" placeholder="Conteudo Postagem" required></textarea> -->
+                            <textarea style="margin: 5px 0px 5px 0px" name="conteudo_postagem"
+                                placeholder="Conteudo Postagem" id="conteudo"></textarea>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary">Concluir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-group test">
+        <% results.forEach((res) => { %>
+        <a href="/home/postagem/<%= res.ID_POSTAGEM%>" class="list-group-item list-group-item-action"><span
+                class="navbar-text text-primary" data-toggle="tooltip" data-placement="bottom"
+                title="<%= res.AUTOR %> | <%= res.DATA_POSTAGEM.toISOString().slice(0, 10) %>  ">
+                <%= res.TITULO %>
+            </span></a>
+        <% }); %>
+        <a href="<%= mostra_link %>" class="list-group-item list-group-item-action active"><%= mostrar_mais%></a>
+    </div>
+
+    <footer>
+        <% include ../complemento/footer %>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+    <script>
+        new SimpleMDE({
+            element: document.getElementById("conteudo"),
+            spellChecker: false,
+            toolbar: ["bold", "italic", "heading", "heading-smaller",
+                "heading-bigger", "|", "quote", "code", "quote", "unordered-list",
+                "ordered-list", "link", "image", "table", "|", "preview", "side-by-side",
+                "fullscreen", "guide"
+            ]
+        });
+    </script>
 </body>
 
 </html>

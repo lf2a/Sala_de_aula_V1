@@ -1,0 +1,22 @@
+* {
+    font-family: 'Lora', serif;
+    outline: none
+}
+
+.test {
+    margin: 20px 10% 20px 10%
+}
+
+p {
+    text-align: justify;
+    word-wrap: break-word;
+    text-indent: 6em;
+}
+
+h3 {
+    margin: 10px 10% 10px 10%
+}
+
+conteudo {
+    margin: 10px 10% 30px 10%
+}

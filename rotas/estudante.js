@@ -7,7 +7,7 @@ const Query = require('./../query')
 
 router.get('/home/adicionar/estudante/', (req, res) => {
     if (Boolean(user.isProfessor)) {
-        new Query().query(`INSERT INTO INTEGRANTE(\`ID_USUARIO_FK\`, \`ID_GRUPO_FK\`, \`IS_SUPER\`) VALUES ('${req.query.id_usuario}', '${group.id_grupo}', '')`, (error, results, fields) => {
+        new Query().query(`INSERT INTO INTEGRANTE(\`ID_USUARIO_FK\`, \`ID_GRUPO_FK\`) VALUES ('${req.query.id_usuario}', '${group.id_grupo}')`, (error, results, fields) => {
             if (error) {
                 console.log('mysql erro: ' + error.code);
 

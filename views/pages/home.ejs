@@ -1,45 +1,160 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="/pages/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet"> 
+    <title><%= user.nome %></title>
 </head>
 
 <body>
-    <p>Olá <%= user.nome %> - <%= user.id %></p>
-    <p><%= user.email %></p>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="/">Sala de Aula</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link" data-toggle="modal" data-target="#Modal1">
+                        <%= tag_link.adicionar_professor_tag %>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link" data-toggle="modal" data-target="#Modal2">
+                        <%= tag_link.remover_professor_tag %>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link" data-toggle="modal" data-target="#Modal3">
+                        <%= tag_link.criar_grupo_tag %>
+                    </a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/about">Sobre</a>
+                </li> -->
+            </ul>
+            <span class="navbar-text text-primary" data-toggle="tooltip" data-placement="bottom"
+                title="<%= user.id %> - <%= user.email %>">
+                <%= user.nome %>
+            </span>
+            <ul class="navbar-nav  mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="/delete">Deletar Conta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    <p>Seus Grupos</p>
-    <% results.forEach((res) => { %>
-    <p><a href="/home/postagens/<%= res.ID_GRUPO_FK %>"><%= res.NOME %></a></p>
-    <% }); %>
-    <a href="/home?limit=5"><%= mostrar_mais %></a>
+    <div class="list-group test">
+        <% results.forEach((res) => { %>
+        <a href="/home/postagens/<%= res.ID_GRUPO_FK %>"
+            class="list-group-item list-group-item-action text-primary"><%= res.NOME %></a>
+        <% }); %>
+        <a href="<%= mostra_link %>" class="list-group-item list-group-item-action active"><%= mostrar_mais%></a>
+    </div>
 
-    <form action="<%= tag_link.adicionar_professor_link %>" method="post">
-        <%= tag_link.adicionar_professor_tag %><input type="text" name="id_professor" placeholder="Id Professor"
-            required>
-        <button type="submit">Concluir</button>
-    </form>
+    <!-- Modal1 -->
+    <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Professor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="<%= tag_link.adicionar_professor_link %>" method="post">
+                        <div class="form-group">
+                            <input type="text" name="id_professor" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Id Usuário" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Concluir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <form action="<%= tag_link.remover_professor_link %>" method="post">
-        <%= tag_link.remover_professor_tag %><input type="text" name="id_professor" placeholder="Id Professor" required>
-        <button type="submit">Concluir</button>
-    </form>
 
-    <form action="<%= tag_link.criar_grupo_link %>" method="post">
-        <!-- <%= tag_link.criar_grupo_tag %><input type="text" name="id_grupo" placeholder="Id Grupo" required> -->
-        <%= tag_link.criar_grupo_tag %><input type="text" name="nome_grupo" placeholder="Nome Grupo" required>
-        <button type="submit">Concluir</button>
-    </form>
-    <a href="/logout">logout</a>
-    <a href="/delete">excluir conta</a>
-    <a href="/home">carregar pagina</a>
+    <!-- Modal2 -->
+    <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Remover Professor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="<%= tag_link.remover_professor_link %>" method="post">
+                        <div class="form-group">
+                            <input type="text" name="id_professor" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Id Professor" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Concluir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal3 -->
+    <div class="modal fade" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Criar Grupo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="<%= tag_link.criar_grupo_link %>" method="post">
+                        <div class="form-group">
+                            <input type="text" name="nome_grupo" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Nome do Grupo" required>
+                            <small id="" class="text-muted">
+                                No máximo 45 caracteres.
+                            </small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Concluir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <% include ../complemento/footer %>
     </footer>
-    </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+</body>
+
 </html>

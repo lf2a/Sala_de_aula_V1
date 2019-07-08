@@ -1,17 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <p>id: <%= status.id %></p>
-    <p>nome: <%= status.nome %></p>
-    <p>email: <%= status.email %></p>
-    <p>senha: <%= status.senha %></p>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/pages/style.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
+        integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <title>Info SignUp</title>
+    <style>
+        .error-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
 
-    <a href="/">voltar</a>
+        .error-actions {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .error-actions .btn {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <h1>Informações da sua conta</h1>
+                    <h2>Salve em um lugar seguro</h2>
+                    <div class="error-details">
+                        <!-- Desculpe pelo ocorrido  -->
+                        <p><span class="text-primary">id:</span> <%= status.id %></p>
+                        <p><span class="text-primary">nome:</span> <%= status.nome %></p>
+                        <p><span class="text-primary">email:</span> <%= status.email %></p>
+                        <p><span class="text-primary">senha:</span> <%= status.senha %></p>
+                    </div>
+                    <div class="error-actions">
+                        <a href="/" class="btn  btn-lg">
+                            <span class="glyphicon glyphicon-home" style='color:#007bff'></span>
+                            Home </a>
+                        <a href="javascript:history.back()" class="btn btn-default btn-lg">
+                            <span class="glyphicon glyphicon-arrow-left" style='color:#007bff'></span>
+                            Voltar </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

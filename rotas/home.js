@@ -10,7 +10,7 @@ router.get('/home', (req, res) => {
     if (req.query.limit) {
         limit.limit_group += Number(req.query.limit)
     } else {
-        Number(limit.limit_group = 5)
+        Number(limit.limit_group = 10)
     }
 
     new Query().query(`SELECT INTEGRANTE.*, GRUPO.NOME FROM INTEGRANTE INNER JOIN GRUPO ON INTEGRANTE.ID_GRUPO_FK = GRUPO.ID_GRUPO WHERE INTEGRANTE.ID_USUARIO_FK = '${user.id}' LIMIT ${limit.limit_group}`, (error, results, fields) => {
@@ -59,22 +59,32 @@ router.get('/home', (req, res) => {
                 group.grupo_array.push(res.ID_GRUPO_FK)
             });
 
-            let mostrar_mais = new String()
-            try {
-                console.log(results[0].ID_GRUPO_FK)
-                mostrar_mais = 'mostrar mais'
-                if (group.grupo_array.length < 5) {
+            new Query().query(`SELECT  COUNT(ID_GRUPO_FK) AS GRUPO_COUNT FROM INTEGRANTE  WHERE ID_USUARIO_FK = '${user.id}'`, (error, resul, fields) => {
+                let mostrar_mais = new String()
+                let mostrar_link = new String()
+                try {
+                    mostrar_mais = 'mostrar mais'
+                    mostrar_link = '/home?limit=10'
+
+                    if (resul[0].GRUPO_COUNT <= 10 || limit.limit_group >= resul[0].GRUPO_COUNT) {
+                        mostrar_mais = 'Está tudo bem.'
+                        mostrar_link = '#'
+                    }
+                    if (Number(resul[0].GRUPO_COUNT) == 0) {
+                        mostrar_mais = 'Você não pertence a nenhum grupo'
+                        mostrar_link = '#'
+                    }
+                } catch (error) {
                     mostrar_mais = ''
                 }
-            } catch (error) {
-                mostrar_mais = ''
-            }
 
-            res.render('pages/home', {
-                results: results,
-                user: user,
-                tag_link: tag_link,
-                mostrar_mais: mostrar_mais
+                res.render('pages/home', {
+                    results: results,
+                    user: user,
+                    tag_link: tag_link,
+                    mostrar_mais: mostrar_mais,
+                    mostra_link: mostrar_link
+                })
             })
         }
     });

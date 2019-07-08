@@ -1,23 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/pages/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+    <title><%= results[0].TITULO %></title>
+    <style>
+        #info {
+            margin: 10px 10% 10px 10%;
+            background-color: #007bff;
+            border: 1px solid rgb(218, 214, 214);
+            padding: 10px;
+            border-radius: 4px;
+            color: white;
+
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+
+        #data {
+            text-align: right;
+        }
+
+        h1,
+        h2,
+        h4,
+        h5,
+        h6,
+        h3,
+        ul,
+        #output>ol,
+        pre,
+        table,
+        img p {
+            margin: 20px 0px 20px 0px;
+        }
+
+        blockquote {
+            border-left: 5px solid #007bff;
+            padding: 4px;
+            color: #505050;
+            margin: 20px 100px 20px 40px;
+            padding: 0px 0px 0px 20px;
+        }
+
+        #output {
+            /*            background-color: rgb(248, 248, 248);*/
+            margin: 20px 10% 20px 10%;
+            border-radius: 4px;
+            border: 1px solid rgb(218, 214, 214);
+            padding: 10px;
+            display: grid;
+            grid-template-columns: auto;
+            text-align: left;
+        }
+
+        #output>* {
+            display: block;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #007bff;
+            color: white;
+        }
+
+        img {
+            display: block;
+            margin: 30px auto 30px auto;
+            box-shadow: 0px 0px 2px 0px;
+            max-width: 80%;
+            height: auto;
+        }
+
+        pre {
+            font-family: monospace;
+            /*border: 1px solid rgb(218, 214, 214);*/
+            padding: 4px;
+            margin: 10px 0px 10px 50px;
+            border-radius: 4px;
+            font-family: 'Source Code Pro', monospace;
+            color: #505050;
+        }
+
+        p {
+            text-align: justify;
+            word-wrap: break-word;
+        }
+
+        @media screen and (min-width: 700px) {
+            img {
+                margin: 30px 10% 30px 10%;
+                max-width: 80%;
+                height: auto;
+            }
+
+            table {
+                max-width: 90%;
+            }
+        }
+
+        @media screen and (max-width: 692px) {
+            img {
+                margin: 30px 10% 30px 10%;
+                max-width: 80%;
+                height: auto;
+            }
+
+            table {
+                max-width: 90%;
+            }
+        }
+
+        @media screen and (max-width: 492px) {
+            img {
+                margin: 30px 10px 30px 10px;
+                max-width: 80%;
+                height: auto;
+            }
+
+            table {
+                margin: auto;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <p>titulo: <%= results[0].TITULO %></p>
-    <p>autor: <%= results[0].AUTOR %></p>
-    <p>data postagem: <%= results[0].DATA_POSTAGEM.toISOString().slice(0, 10) %></p>
-    <p>grupo: <%= results[0].ID_GRUPO_FK %></p>
-    <p>id postagem: <%= results[0].ID_POSTAGEM %></p>
-    <p>conteudo: <%= results[0].CONTEUDO %></p>
 
-    <a href="<%= isAutor.excluir_post_link %>"><%= isAutor.excluir_post_tag %></a>
-    <a href="/home/postagens/<%= grupo_id %>">voltar</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="/">Sala de Aula</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/about">Sobre</a>
+                </li> -->
+            </ul>
+            <span class="navbar-text text-primary" data-toggle="tooltip" data-placement="bottom"
+                title="<%= user.id %> - <%= user.email %>">
+                <%= user.nome %>
+            </span>
+            <ul class="navbar-nav  mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item"><a href="/home/postagens/<%= results[0].ID_GRUPO_FK %>"><%= nome_grupo %></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page"><%= results[0].TITULO %></li>
+        </ol>
+    </nav>
+
+    <div id="info">
+        <div id="name">Autor: <%= results[0].AUTOR %></div>
+        <div id="data">Publicação: <%= results[0].DATA_POSTAGEM.toISOString().slice(0, 10) %></div>
+    </div>
+
+    <div id="out">
+        <div id="output"></div>
+    </div>
+    <div>
+        <!-- <%= renderHtml %> -->
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div class="btn-group btn-group-lg">
+                <a href="/home/postagens/<%= grupo_id %>" class="btn btn-primary">Voltar</a>
+                <a href="<%= isAutor.excluir_post_link %>" class="btn btn-primary"><%= isAutor.excluir_post_tag %></a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <% include ../complemento/footer %>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <script>
+        var encoded = `<%= renderHtml %>`;
+
+        var decode = $('<div />').html(encoded).text();
+
+        $('#output').append(decode);
+        $("a:first").addClass("out");
+    </script>
+
 </body>
 
 </html>

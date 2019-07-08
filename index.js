@@ -47,8 +47,14 @@ const porta = 3000
  */
 
 https.createServer({
-        key: fs.readFileSync('server.key'),
-        cert: fs.readFileSync('server.cert')
+        key: fs.readFileSync('certificate.key'),
+        cert: fs.readFileSync('certificate.crt')
+
+        /** 
+         * Certificados auto-assinados
+         * (gerar seu prorpio certificado)$ openssl req -x509 -sha256 -newkey rsa:2048 -keyout certificate.key -out certificate.crt -days 1024 -nodes
+         */
+
     }, app)
     .listen(porta, () => {
         console.log(`https://localhost:${porta}`)

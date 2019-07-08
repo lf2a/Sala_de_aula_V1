@@ -44,20 +44,27 @@ router.get('/home/postagem/:id_postagem', (req, res) => {
             if (isValid) {
 
                 const isAutor = {
-                    excluir_post_tag: '',
+                    excluir_post_tag: 'Fim',
                     excluir_post_link: ''
                 }
 
                 if (results[0].AUTOR_ID == user.id) {
-                    isAutor.excluir_post_tag = 'Excluir Publicação'
+                    isAutor.excluir_post_tag = 'Excluir'
                     isAutor.excluir_post_link = '/home/excluir/postagem/' + results[0].ID_POSTAGEM
                 }
+
+                var MarkdownIt = require('markdown-it'),
+                    md = new MarkdownIt();
+
+                var rt = md.render(results[0].CONTEUDO);
 
                 res.render('pages/postagem', {
                     results: results,
                     isAutor: isAutor,
                     user: user,
-                    grupo_id: group.id_grupo
+                    grupo_id: group.id_grupo,
+                    nome_grupo: group.nome_grupo,
+                    renderHtml: rt
                 })
             } else {
                 res.redirect('/404')
