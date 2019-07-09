@@ -33,7 +33,7 @@ app.use('/', rotas)
 
 app.use(express.static(__dirname + '/views'))
 
-const porta = process.env.PORT || 5000;
+//const porta = process.env.PORT || 5000;
 
 /**
  * caso for usar a porta 80 é
@@ -60,5 +60,5 @@ https.createServer({
         console.log(`O servidor está rodendo na porta ${porta}`)
     })*/
     .listen(process.env.PORT || 3000, () => {
-        console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+        console.log('servidor em execução');
     });
