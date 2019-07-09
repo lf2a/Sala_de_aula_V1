@@ -1,6 +1,6 @@
 /*let fs = require('fs')
-let https = require('https')
-const Rand = require('./rand')*/
+let https = require('https')*/
+const Rand = require('./rand')
 
 const express = require('express')
 const session = require('express-session')
