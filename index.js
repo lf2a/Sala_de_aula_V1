@@ -33,7 +33,7 @@ app.use('/', rotas)
 
 app.use(express.static(__dirname + '/views'))
 
-const porta = process.env.PORT || 8080;
+const porta = process.env.PORT || 5000;
 
 /**
  * caso for usar a porta 80 é
