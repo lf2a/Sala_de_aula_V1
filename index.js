@@ -47,8 +47,8 @@ const porta = process.env.PORT || 5000;
  */
 
 https.createServer({
-        key: fs.readFileSync('certificate.key'),
-        cert: fs.readFileSync('certificate.crt')
+        key: fs.readFileSync('cert.key'),
+        cert: fs.readFileSync('cert.crt')
 
         /** 
          * Certificados auto-assinados
