@@ -56,6 +56,9 @@ https.createServer({
          */
 
     }, app)
-    .listen(porta, () => {
-        console.log(`https://localhost:${porta}`)
-    })
+    /*.listen(porta, () => {
+        console.log(`O servidor está rodendo na porta ${porta}`)
+    })*/
+    .listen(process.env.PORT || 3000, () => {
+        console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    });
