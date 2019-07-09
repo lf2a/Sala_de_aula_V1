@@ -2,12 +2,12 @@ const mysql = require('mysql')
 
 class Query {
     query(q, callback) {
-        
+
         let conn = mysql.createConnection({
-            host: '',
-            user: '',
-            password: '',
-            database: ''
+            host: 'remotemysql.com',
+            user: 'CZ7KZmc3yk',
+            password: 'cZET8iPiZ7',
+            database: 'CZ7KZmc3yk'
         });
 
         conn.connect();
