@@ -1,6 +1,6 @@
-var fs = require('fs')
-var https = require('https')
-const Rand = require('./rand')
+/*let fs = require('fs')
+let https = require('https')
+const Rand = require('./rand')*/
 
 const express = require('express')
 const session = require('express-session')
@@ -46,19 +46,19 @@ app.use(express.static(__dirname + '/views'))
  * sudo service apache2 stop
  */
 
-https.createServer({
+/*https.createServer({
         key: fs.readFileSync('cert.key'),
-        cert: fs.readFileSync('cert.crt')
+        cert: fs.readFileSync('cert.crt')*/
 
         /** 
          * Certificados auto-assinados
          * (gerar seu prorpio certificado)$ openssl req -x509 -sha256 -newkey rsa:2048 -keyout certificate.key -out certificate.crt -days 1024 -nodes
          */
 
-    }, app)
-    /*.listen(porta, () => {
+    /*}, app)
+    .listen(porta, () => {
         console.log(`O servidor está rodendo na porta ${porta}`)
     })*/
-    .listen(process.env.PORT || 3000, () => {
+    app.listen(process.env.PORT || 3000, () => {
         console.log('servidor em execução');
     });
