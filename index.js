@@ -1,5 +1,3 @@
-/*let fs = require('fs')
-let https = require('https')*/
 const Rand = require('./rand')
 
 const express = require('express')
@@ -10,10 +8,8 @@ const app = express()
 
 app.set('view engine', 'ejs');
 
-const r = new Rand()
-
 app.use(session({
-    secret: r.rand(),
+    secret: new Rand().rand(),
     resave: true,
     saveUninitialized: true
 }));
@@ -33,32 +29,6 @@ app.use('/', rotas)
 
 app.use(express.static(__dirname + '/views'))
 
-//const porta = process.env.PORT || 5000;
-
-/**
- * caso for usar a porta 80 é
- * preciso levantar o server como root pra evitar o erro
- * "Error: listen EACCES: permission denied 0.0.0.0:80"
- */
-
-/** 
- * caso tenha o apache2 rodando na porta 80
- * sudo service apache2 stop
- */
-
-/*https.createServer({
-        key: fs.readFileSync('cert.key'),
-        cert: fs.readFileSync('cert.crt')*/
-
-        /** 
-         * Certificados auto-assinados
-         * (gerar seu prorpio certificado)$ openssl req -x509 -sha256 -newkey rsa:2048 -keyout certificate.key -out certificate.crt -days 1024 -nodes
-         */
-
-    /*}, app)
-    .listen(porta, () => {
-        console.log(`O servidor está rodendo na porta ${porta}`)
-    })*/
-    app.listen(process.env.PORT || 3000, () => {
-        console.log('servidor em execução');
-    });
+app.listen(process.env.PORT || 3000, () => {
+    console.log('servidor em execução');
+});
