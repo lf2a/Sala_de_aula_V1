@@ -126,7 +126,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/home/criar/postagem/<%= grupoid %>" method="post" enctype="multipart/form-data">
+                    <form action="/home/criar/postagem/<%= grupoid %>" method="post">
                         <div class="form-group">
                             <input style="margin: 5px 0px 5px 0px" type="text" name="titulo_postagem"
                                 class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -140,10 +140,6 @@
                             <input style="margin: 5px 0px 5px 0px" type="text" name="grupo_id"
                                 class="form-control-plaintext" id="exampleInputEmail1" aria-describedby="emailHelp"
                                 value="<%= grupoid %>" readonly>
-                            <input type="file" class="form-control-file" name="anexo" />
-                            <small id="" class="text-muted">
-                                só realize upload de arquivos com a extensão <strong>.rar</strong>
-                            </small>
                             <!-- <textarea style="margin: 5px 0px 5px 0px" class="form-control" rows="10"
                                 name="conteudo_postagem" placeholder="Conteudo Postagem" required></textarea> -->
                             <textarea style="margin: 5px 0px 5px 0px" name="conteudo_postagem"
