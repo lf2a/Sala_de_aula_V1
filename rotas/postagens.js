@@ -4,8 +4,15 @@ var group = require('./../group')
 var user = require('./../usuario')
 var limit = require('./../limit')
 const Query = require('./../query')
+const fs = require('fs')
 
 router.get('/home/postagens/:id_grupo', (req, res) => {
+
+    try {
+        fs.unlinkSync('./uploads/sala_de_aula.rar')
+        fs.unlinkSync('./uploads/temp.rar')
+    } catch (err) {}
+
     var isValid = false
 
     group.grupo_array.forEach(res => {
@@ -21,7 +28,8 @@ router.get('/home/postagens/:id_grupo', (req, res) => {
     }
 
     if (isValid) {
-        new Query().query(`SELECT * FROM POSTAGEM WHERE ID_GRUPO_FK='${req.params.id_grupo}' ORDER BY DATA_POSTAGEM DESC LIMIT ${limit.limit_posts}`, (error, results, fields) => {
+        // new Query().query(`SELECT * FROM POSTAGEM WHERE ID_GRUPO_FK='${req.params.id_grupo}' ORDER BY DATA_POSTAGEM DESC LIMIT ${limit.limit_posts}`, (error, results, fields) => {
+        new Query().query(`SELECT ID_POSTAGEM, TITULO, DATA_POSTAGEM, AUTOR FROM POSTAGEM WHERE ID_GRUPO_FK='${req.params.id_grupo}' ORDER BY DATA_POSTAGEM DESC LIMIT ${limit.limit_posts}`, (error, results, fields) => {
             if (error) {
                 console.log('mysql erro: ' + error.code);
 
