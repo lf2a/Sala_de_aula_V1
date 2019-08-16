@@ -13,4 +13,4 @@ Uma sala de aula virtual
 ### Admin
 * Transformar usuários comuns em professores
 
-> Utiliza https (os certificardos são auto-assinados)
+> Meu primeiro projeto em NodeJS
