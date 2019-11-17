@@ -4,9 +4,9 @@ class Query {
     query(q, callback) {
 
         let conn = mysql.createConnection({
-            host: 'remotemysql.com',
-            user: 'CZ7KZmc3yk',
-            password: 'cZET8iPiZ7',
+            host: 'localhost',
+            user: 'root',
+            password: 'root',
             database: 'CZ7KZmc3yk'
         });
 
